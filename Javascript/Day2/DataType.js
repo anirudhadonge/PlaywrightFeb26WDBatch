@@ -59,4 +59,6 @@ function display(val){
 }
 
 let val;
+
+val = null;
 display(val);
