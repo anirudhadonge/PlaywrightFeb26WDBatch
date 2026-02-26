@@ -41,6 +41,6 @@
 
 let myName = " Anirudha is the tutor "; // string
 
-console.log('&'+myName.trimEnd()+"&")
-console.log('&'+myName.trimStart()+"&")
-console.log('&'+myName.trim()+"&")
+console.log('&'+myName.trimEnd()+"&");
+console.log('&'+myName.trimStart()+"&");
+console.log('&'+myName.trim()+"&");
