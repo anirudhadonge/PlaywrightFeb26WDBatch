@@ -39,7 +39,7 @@
 
 // console.log(myName.split('An',2))
 
-let myName = " Anirudha is the tutor "; // string
+let myName = " Anirudha is the tutor "; // string  ctr+/
 
 console.log('&'+myName.trimEnd()+"&");
 console.log('&'+myName.trimStart()+"&");
