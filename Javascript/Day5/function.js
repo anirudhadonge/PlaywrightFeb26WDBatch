@@ -35,3 +35,16 @@ let addFourNumbers = (a,b,c,d)=>{
 // setTimeout(()=>{
 //     console.log("Lets execute this after some time");
 // },3000);
+
+
+function fun(fun1){
+    fun1();
+}
+
+fun(()=>{
+    console.log("this is my first implementation");
+})
+
+fun(()=>{
+    console.log("this is my second implementation");
+})
