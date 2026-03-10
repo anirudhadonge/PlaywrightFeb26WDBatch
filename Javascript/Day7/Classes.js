@@ -10,6 +10,13 @@
  * 
  */
 
+/**
+ * Getter and setters
+ * Methods declaration
+ * Inherite the Class
+ * Polymorphism
+ */
+
 class Student {
     #rollNo;
     constructor(name, rollNo){

@@ -17,7 +17,7 @@
  * Class Variables/Methods: All the properties and method that are accessed using the class name. these are not thread safe
  */
 
-class Student {
+export default class Student {
     rollNo;
     constructor(name, rollNo){
        this.name = name;
@@ -49,6 +49,10 @@ class Student {
 }
 
 
+export function add(a,b){
+    return a+b;
+}
+
 // // let engStudent = new Student('Anirudha',7);
 // // //let farmaStudent = new Student('Hitesh',52);
 
@@ -71,7 +75,7 @@ class Student {
 // farmaStudent.display()
 
 
-class EnggStudent extends Student{
+export class EnggStudent extends Student{
     static statvar;
     constructor(name, rollNo,branch){
         super(name,rollNo)//calling the constructor of the parent class
@@ -88,10 +92,16 @@ class EnggStudent extends Student{
 }
 
 
-let entc = new EnggStudent('Anirudha',7,'ENTC');
-console.log(entc);
-entc.setMarks(70);
-console.log(entc);
-entc.display();
+// let entc = new EnggStudent('Anirudha',7,'ENTC');
+// console.log(entc);
+// entc.setMarks(70);
+// console.log(entc);
+// entc.display();
 
-EnggStudent.
+// EnggStudent.
+
+// module.exports={Student,add, EnggStudent};
+
+//module.exports= {Student,add};
+
+//module.exports={add, Student,EnggStudent}
