@@ -9,3 +9,16 @@
  * % reminder operator will be 
  * while loop * 
  */
+
+let myNumber = 12345678;
+
+let reverseNumber=0;
+
+while(myNumber>0){
+    reverseNumber = reverseNumber*10 + (myNumber%10); // 0 = 0*10+8 = 8;
+    console.log(reverseNumber);
+    myNumber = Math.floor(myNumber/10); // 1234567.8 = 1234567
+    console.log(myNumber);
+}
+
+console.log(reverseNumber);
