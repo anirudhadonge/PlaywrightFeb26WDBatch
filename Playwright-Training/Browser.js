@@ -19,4 +19,7 @@
  * test Folder: Place where you will place all your End to End
  * 
  * Node_Modules:  it contains all the dependencies
+ * 
+ * 
+ * test file: Ever test file should have .spec.js extension.
  */

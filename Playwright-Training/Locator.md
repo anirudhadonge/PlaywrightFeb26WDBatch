@@ -1,6 +1,6 @@
 Xpath and CSS Locator : Provide us with address of element.
 
-
+#
 
 /**
  * xpath: //<Htmltag>[@<attribute>='<attributeValue>']
@@ -15,8 +15,9 @@ Xpath and CSS Locator : Provide us with address of element.
  * 4. Moving between siblings
  *      following-siblings : //<html Tag>[@<attribute>='<attributeValue>']//following-sibling::<sibling html tag>[@<attribute>='<attributeValue>']
  *      preceding-siblings : //<html Tag>[@<attribute>='<attributeValue>']//preceding-sibling::<sibling html tag>[@<attribute>='<attributeValue>']
- * 5. text()
- * 6.  AND OR
+ * 5. contains() 
+ * 6. text()
+ * 7. AND OR
  * 
  * css locator
  * class is denote by a .<Class Value>
