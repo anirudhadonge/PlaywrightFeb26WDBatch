@@ -27,7 +27,7 @@ Xpath and CSS Locator : Provide us with address of element.
  * If attribute starts with a specific values [attribute^='value'];
  * 
  * parent to child
- * sibling to immidate sibling +
+ * sibling to immedate sibling +
  */
 
 
@@ -35,3 +35,13 @@ Xpath and CSS Locator : Provide us with address of element.
  * Absolute : //html//body//
  * relative 
  */
+
+ ## Locator Object
+ 1. Locate by role: 
+ 2. Locate by label
+ 3. Locate by placeholder
+ 4. Locate by text
+ 5. Locate by alt text
+ 6. Locate by title2
+ 7. Locate by test id
+ 8. Locate by CSS or XPath
