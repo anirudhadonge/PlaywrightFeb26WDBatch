@@ -42,6 +42,6 @@ Xpath and CSS Locator : Provide us with address of element.
  3. Locate by placeholder
  4. Locate by text
  5. Locate by alt text
- 6. Locate by title2
+ 6. Locate by title
  7. Locate by test id
  8. Locate by CSS or XPath

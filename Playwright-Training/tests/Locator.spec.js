@@ -21,7 +21,7 @@ test('Locate by Place Holder ',async({page})=>{
     await page.getByPlaceholder("Enter your mobile number").nth(0).pressSequentially('123456789',{delay:500});
 })
 
-test.only('Locate by Text',async({page})=>{
+test('Locate by Text',async({page})=>{
     await page.goto("https://selectorshub.com/xpath-practice-page/");
     // await page.waitForTimeout(5000);
     // await page.getByText("Submit").click();
@@ -29,3 +29,4 @@ test.only('Locate by Text',async({page})=>{
     // await page.getByAltText()
     await page.getByTestId("sh_email1").pressSequentially('ANirudha.donge',{delay:2000});
 })
+
