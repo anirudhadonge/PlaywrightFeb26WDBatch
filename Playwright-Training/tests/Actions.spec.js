@@ -1,4 +1,5 @@
 import { test } from "@playwright/test";
+import {BasePage} from './../PageModel/BasePage'
 /**
  * Click()
  * Fill() and PressSequentially
@@ -66,7 +67,7 @@ test("Select element test", async ({ page }) => {
  * not.toBeChecked() --- Negative validation of checked
  */
 
-test.only("Check action test", async ({ page }) => {
+test("Check action test", async ({ page }) => {
   await page.goto("https://the-internet.herokuapp.com/");
   await page.locator('[href="/checkboxes"]').click();
   await page.waitForTimeout(3000);
@@ -74,4 +75,33 @@ test.only("Check action test", async ({ page }) => {
   await page.waitForTimeout(3000);
   await page.locator("#checkboxes input").nth(1).uncheck();
   await page.waitForTimeout(3000);
+});
+
+/**
+ * we will create a object of promise which would provide me the file upload event
+ * we could click on the element which open the file upload dialog
+ * wait for the promise to return the file upload event
+ * using this file upload event i will upload the file using the file path
+ */
+test("UPloading file test", async ({ page }) => {
+  let basePage = new BasePage(page);
+  await basePage.goto("https://the-internet.herokuapp.com/");
+  await basePage.clickOnElement('[href="/upload"]');
+  //await page.locator("#file-upload").setInputFiles(["./Files/sample-upload.txt","./Files/sample-upload.txt"]);
+  await basePage.uploadFile("#file-upload","./Files/sample-upload.txt");
+  await page.waitForTimeout(4000);
+});
+/**
+ * create a promise object of Download Event
+ * we could click on the element which download the file
+ * wait for the Download Event object be create using the promise
+ * using the download event object we would save the file
+ */
+
+test.only("Download file test", async ({ page }) => {
+  let basePage = new BasePage(page);
+  await basePage.goto("https://the-internet.herokuapp.com/");
+  await basePage.clickOnElement('[href="/download"]');
+  await basePage.downloadFile('[href="download/hello.json"]',"./Files/");
+  await basePage.downloadFile('[href="download/SomeFile.txt"]',"./Files/");
 });
