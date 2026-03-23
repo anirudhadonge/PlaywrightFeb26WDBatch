@@ -1,5 +1,5 @@
-import { test } from "@playwright/test";
-import {BasePage} from './../PageModel/BasePage'
+import { test, expect, chromium } from "@playwright/test";
+import { BasePage } from "./../PageModel/BasePage";
 /**
  * Click()
  * Fill() and PressSequentially
@@ -88,7 +88,7 @@ test("UPloading file test", async ({ page }) => {
   await basePage.goto("https://the-internet.herokuapp.com/");
   await basePage.clickOnElement('[href="/upload"]');
   //await page.locator("#file-upload").setInputFiles(["./Files/sample-upload.txt","./Files/sample-upload.txt"]);
-  await basePage.uploadFile("#file-upload","./Files/sample-upload.txt");
+  await basePage.uploadFile("#file-upload", "./Files/sample-upload.txt");
   await page.waitForTimeout(4000);
 });
 /**
@@ -98,10 +98,132 @@ test("UPloading file test", async ({ page }) => {
  * using the download event object we would save the file
  */
 
-test.only("Download file test", async ({ page }) => {
+test("Download file test", async ({ page }) => {
   let basePage = new BasePage(page);
   await basePage.goto("https://the-internet.herokuapp.com/");
   await basePage.clickOnElement('[href="/download"]');
-  await basePage.downloadFile('[href="download/hello.json"]',"./Files/");
-  await basePage.downloadFile('[href="download/SomeFile.txt"]',"./Files/");
+  await basePage.downloadFile('[href="download/hello.json"]', "./Files/");
+  await basePage.downloadFile('[href="download/SomeFile.txt"]', "./Files/");
+});
+// Frame Object using the address of the Frame
+// From the frame object we will locate the html element of the inner html
+test("Frames test", async ({ page }) => {
+  let basePage = new BasePage(page);
+  await basePage.goto("https://the-internet.herokuapp.com/");
+  await basePage.clickOnElement('[href="/frames"]');
+  await basePage.clickOnElement('[href="/iframe"]');
+  let frame = basePage.getFrameLocator("#mce_0_ifr");
+  await expect(frame.locator("#tinymce p")).toBeVisible();
+});
+
+test("Js Alerts", async ({ page }) => {
+  let basePage = new BasePage(page);
+  await basePage.goto("https://the-internet.herokuapp.com/");
+  await basePage.clickOnElement('[href="/javascript_alerts"]');
+  // page.on('dialog',(dialog)=>{
+  //   console.log(dialog.message());
+  //   dialog.accept();
+  // })
+  // await page.locator('[onclick="jsAlert()"]').click();
+  await basePage.handleJSAlert('[onclick="jsAlert()"]');
+  await expect(page.locator("#result")).toHaveText(
+    "You successfully clicked an alert",
+  );
+  await page.waitForTimeout(5000);
+});
+
+test("Js Confirm dialog", async ({ page }) => {
+  let basePage = new BasePage(page);
+  await basePage.goto("https://the-internet.herokuapp.com/");
+  await basePage.clickOnElement('[href="/javascript_alerts"]');
+  await basePage.handleJSAlert('[onclick="jsConfirm()"]', false);
+  // page.on('dialog',(dialog)=>{
+  //    console.log(dialog.message());
+  //     //dialog.accept();
+  //     dialog.dismiss();
+  // })
+  // await page.locator('[onclick="jsConfirm()"]').click();
+  //await expect(page.locator("#result")).toHaveText('You clicked: Ok')
+  await expect(page.locator("#result")).toHaveText("You clicked: Cancel");
+  await page.waitForTimeout(5000);
+});
+
+test("Js Prompt dialog", async ({ page }) => {
+  let message = "This is a playwright demo";
+  let basePage = new BasePage(page);
+  await basePage.goto("https://the-internet.herokuapp.com/");
+  await basePage.clickOnElement('[href="/javascript_alerts"]');
+  await basePage.handleJSAlert('[onclick="jsPrompt()"]', true, message);
+  // page.on('dialog',(dialog)=>{
+  //    console.log(dialog.message());
+  //     dialog.accept(message);
+  //     //dialog.dismiss();
+  // })
+  // await page.locator('[onclick="jsPrompt()"]').click();
+  //await expect(page.locator("#result")).toHaveText('You clicked: Ok')
+  await expect(page.locator("#result")).toHaveText("You entered: " + message);
+  await page.waitForTimeout(5000);
+});
+
+test("Hover test", async ({ page }) => {
+  await page.goto("https://the-internet.herokuapp.com/");
+  await page.locator('[href="/hovers"]').click();
+  await page.waitForTimeout(5000);
+  let locator1 = page.locator('[src="/img/avatar-blank.jpg"]').nth(0);
+  await locator1.hover();
+  await page.waitForTimeout(5000);
+  await page.locator('[src="/img/avatar-blank.jpg"]').nth(1).hover();
+  await page.waitForTimeout(5000);
+  await page.locator('[src="/img/avatar-blank.jpg"]').nth(2).hover();
+  await page.waitForTimeout(5000);
+});
+
+test("Browser context ", async () => {
+  let browser = await chromium.launch({
+    channel: "msedge",
+    headless: false,
+  });
+  let context = await browser.newContext();
+  let page = await context.newPage();
+  await page.goto("www.google.com");
+});
+
+test("Multiple windows", async ({ page, context }) => {
+  await page.goto("https://the-internet.herokuapp.com/");
+  await page.locator('[href="/windows"]').click();
+  const newPagePromise = context.waitForEvent("page");
+  await page.locator('[href="/windows/new"]').click();
+  const newPage = await newPagePromise;
+  await expect(newPage.locator(".example h3")).toHaveText("New Window");
+});
+
+test("Handling windows Authencation", async ({ page }) => {
+  // let context = await browser.newContext({
+  //   httpCredentials:{
+  //     username:'admin',
+  //     password:'admin'
+  //   }
+  // })
+  // let page = await context.newPage({
+
+  // });
+  await page.goto("https://the-internet.herokuapp.com/");
+  await page.locator('[href="/digest_auth"]').click();
+  await expect(page.locator(".example p")).toContainText(
+    "Congratulations! You must have the proper credentials.",
+  );
+  await page.waitForTimeout(5000);
+});
+
+test("drag and drop test", async ({ page }) => {
+  await page.goto("https://the-internet.herokuapp.com/");
+  await page.locator('[href="/drag_and_drop"]').click();
+  await page.locator("#column-a").dragTo(page.locator("#column-b"))
+  await page.waitForTimeout(5000); //source.dragTo(destination)
+});
+
+test.only("textContent test", async ({ page }) => {
+  await page.goto("https://the-internet.herokuapp.com/");
+  let header = await page.locator("#content h2").textContent()
+  console.log(header);
 });

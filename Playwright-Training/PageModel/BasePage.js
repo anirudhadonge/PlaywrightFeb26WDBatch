@@ -18,12 +18,12 @@ export class BasePage {
   }
 
   async uploadFile(locatorString, filePath) {
-    const fileChooser = await this.getEventObject(locatorString,"filechooser")
+    const fileChooser = await this.getEventObject(locatorString, "filechooser");
     await fileChooser.setFiles(filePath);
   }
 
   async downloadFile(locatorString, path) {
-    const download = await this.getEventObject(locatorString,"download")
+    const download = await this.getEventObject(locatorString, "download");
     await download.saveAs(path + download.suggestedFilename());
   }
 
@@ -31,5 +31,25 @@ export class BasePage {
     const eventPromise = this.page.waitForEvent(eventName);
     await this.clickOnElement(locatorString);
     return await eventPromise;
+  }
+
+  async getFrameLocator(locatorString) {
+    return this.page.frameLocator(locatorString);
+  }
+
+  async handleJSAlert(locatorString, flag = true, message = "") {
+    this.page.on("dialog", (dialog) => {
+      console.log(dialog.message());
+      if (flag) {
+        if (message == "") {
+          dialog.accept();
+        } else {
+          dialog.accept(message);
+        }
+      } else {
+        dialog.dismiss();
+      }
+    });
+    this.clickOnElement(locatorString);
   }
 }
