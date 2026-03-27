@@ -15,9 +15,12 @@ import { BasePage } from "./../PageModel/BasePage";
  * Drag and Drop
  * TextContent
  */
+test.describe("First two method",async()=>{
 
-test("Click Action Test", async ({ page }) => {
+test.beforeEach('Navigate to HeroKuApp',async({page})=>{
   await page.goto("https://the-internet.herokuapp.com/");
+})
+test("Click Action Test", async ({ page }) => {
   await page.locator("[href='/add_remove_elements/']").click({
     delay: 5000,
     timeout: 2000,
@@ -26,7 +29,6 @@ test("Click Action Test", async ({ page }) => {
 });
 
 test("Press Sequentially and Fill action", async ({ page }) => {
-  await page.goto("https://the-internet.herokuapp.com/");
   await page.locator('[href="/login"]').click();
   await page.waitForTimeout(3000);
   await page.locator("#username").pressSequentially("tomsmith", { delay: 500 }); // it replicates the typing activity
@@ -36,9 +38,11 @@ test("Press Sequentially and Fill action", async ({ page }) => {
   //  */
   // await page.waitForTimeout(3000);
   // await page.locator('#username').fill("Anirudha")
-  await page.locator("#username").pressSequentially("Anirudha", { delay: 500 });
+  await page.locator("#password").pressSequentially("Anirudha", { delay: 500 });
   await page.waitForTimeout(3000);
 });
+})
+
 
 /**
  * selectOption() html tag it supports is "select"
@@ -47,7 +51,7 @@ test("Press Sequentially and Fill action", async ({ page }) => {
  * 3. index
  */
 
-test("Select element test", async ({ page }) => {
+test(" @smoke, @p1 Select element test", async ({ page }) => {
   await page.goto("https://the-internet.herokuapp.com/");
   await page.locator('[href = "/dropdown"]').click();
   await page.waitForTimeout(3000);
@@ -70,10 +74,10 @@ test("Select element test", async ({ page }) => {
 test("Check action test", async ({ page }) => {
   await page.goto("https://the-internet.herokuapp.com/");
   await page.locator('[href="/checkboxes"]').click();
-  await page.waitForTimeout(3000);
-  await page.locator("#checkboxes input").nth(0).check();
-  await page.waitForTimeout(3000);
+  //await page.locator("#checkboxes input").nth(0).check();
+  await expect.soft(page.locator("#checkboxes input").nth(0)).toBeChecked();
   await page.locator("#checkboxes input").nth(1).uncheck();
+  await expect.soft(page.locator("#checkboxes input").nth(1)).not.toBeChecked();
   await page.waitForTimeout(3000);
 });
 
@@ -83,7 +87,9 @@ test("Check action test", async ({ page }) => {
  * wait for the promise to return the file upload event
  * using this file upload event i will upload the file using the file path
  */
-test("UPloading file test", async ({ page }) => {
+test("UPloading file test",{
+  tag:"@smoke"
+}, async ({ page }) => {
   let basePage = new BasePage(page);
   await basePage.goto("https://the-internet.herokuapp.com/");
   await basePage.clickOnElement('[href="/upload"]');
@@ -98,7 +104,7 @@ test("UPloading file test", async ({ page }) => {
  * using the download event object we would save the file
  */
 
-test("Download file test", async ({ page }) => {
+test("@p1 @Download Download file test", async ({ page }) => {
   let basePage = new BasePage(page);
   await basePage.goto("https://the-internet.herokuapp.com/");
   await basePage.clickOnElement('[href="/download"]');
@@ -165,19 +171,6 @@ test("Js Prompt dialog", async ({ page }) => {
   await page.waitForTimeout(5000);
 });
 
-test("Hover test", async ({ page }) => {
-  await page.goto("https://the-internet.herokuapp.com/");
-  await page.locator('[href="/hovers"]').click();
-  await page.waitForTimeout(5000);
-  let locator1 = page.locator('[src="/img/avatar-blank.jpg"]').nth(0);
-  await locator1.hover();
-  await page.waitForTimeout(5000);
-  await page.locator('[src="/img/avatar-blank.jpg"]').nth(1).hover();
-  await page.waitForTimeout(5000);
-  await page.locator('[src="/img/avatar-blank.jpg"]').nth(2).hover();
-  await page.waitForTimeout(5000);
-});
-
 test("Browser context ", async () => {
   let browser = await chromium.launch({
     channel: "msedge",
@@ -217,13 +210,19 @@ test("Handling windows Authencation", async ({ page }) => {
 
 test("drag and drop test", async ({ page }) => {
   await page.goto("https://the-internet.herokuapp.com/");
+  //await page.waitForTimeout(3000);
   await page.locator('[href="/drag_and_drop"]').click();
-  await page.locator("#column-a").dragTo(page.locator("#column-b"))
-  await page.waitForTimeout(5000); //source.dragTo(destination)
+  //await page.waitForTimeout(3000);
+  await page.locator("#column-a").dragTo(page.locator("#column-b"));
+  //await page.waitForTimeout(5000); //source.dragTo(destination)
 });
 
-test.only("textContent test", async ({ page }) => {
+test("textContent test", async ({ page }) => {
   await page.goto("https://the-internet.herokuapp.com/");
-  let header = await page.locator("#content h2").textContent()
-  console.log(header);
+  let locatorObj = page.locator("#content h2");
+  await locatorObj.waitFor();
+  let header = await page.locator("#content h2").textContent();
+  await page.waitForLoadState("", {
+    timeout: 5000,
+  });
 });
