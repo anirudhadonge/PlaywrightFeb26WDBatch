@@ -6,7 +6,7 @@ test.beforeEach("Navigate to Login Page", async ({ page }) => {
   });
 });
 
-test("Login to Application", async ({ page }) => {
+test.only("Login to Application", async ({ page }) => {
   test.slow();
   await test.step("Enter the Username and password and Login", async () => {
     await page.locator("#username").pressSequentially("tomsmith");
@@ -16,7 +16,7 @@ test("Login to Application", async ({ page }) => {
 
   await test.step("Validate login is successfull", async () => {
     await expect(page.locator(".subheader")).toContainText(
-      "Welcome to the Secure Area!@",
+      "Welcome to the Secure Area",
     );
   });
 

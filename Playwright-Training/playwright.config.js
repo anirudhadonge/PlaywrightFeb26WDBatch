@@ -14,20 +14,24 @@ import { defineConfig, devices } from '@playwright/test';
  */
 export default defineConfig({
   timeout:180000,
-  expect:{
-    timeout:1000
-  },
+  // expect:{
+  //   timeout:1000
+  // },
   testDir: './tests',
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
-  forbidOnly: true,
+  forbidOnly: false,
   /* Retry on CI only */
   //retries: 1,
   /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : undefined,
+  //workers : 1 , //it the number of thread on which you would exeucte test
+
+  //repeatEach:2,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
+  reporter: [['html',{open:"never"}],
+['json',{outputFile:'./json/result.json'}],
+['junit',{outputFile:'./Junit/result.xml'}]], // html, xml , json allure reports 
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     testIdAttribute: 'dataid',
@@ -39,10 +43,27 @@ export default defineConfig({
       password:'admin'
     },
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
-    browserName:'chromium',
-    headless:false
     
+    browserName:'chromium',
+    channel:'',
+    headless:false,
+    viewport: null,
+
+    launchOptions:{
+      args:['-start-maximized']
+    },
+    screenshot:'on',
+    // video:{
+    //   mode:'on',
+    //   size:{
+    //     height:1080,
+    //     width:1920
+    //   }
+   
+    // }
+     trace:'retain-on-failure'
+
+
   },
 
   /* Configure projects for major browsers */
