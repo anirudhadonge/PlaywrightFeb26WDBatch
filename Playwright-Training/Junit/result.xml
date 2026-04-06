@@ -1,0 +1,20 @@
+<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="2.6626239999999997">
+<testsuite name="APITesting.spec.js" timestamp="2026-04-06T15:07:32.551Z" hostname="" tests="1" failures="0" skipped="0" time="1.684" errors="0">
+<testcase name="Create Booking using API" classname="APITesting.spec.js" time="1.684">
+<system-out>
+<![CDATA[{
+  bookingid: [33m3123[39m,
+  booking: {
+    firstname: [32m'Anirudha'[39m,
+    lastname: [32m'Donge'[39m,
+    totalprice: [33m145676[39m,
+    depositpaid: [33mtrue[39m,
+    bookingdates: { checkin: [32m'2026-06-04'[39m, checkout: [32m'2026-07-04'[39m },
+    additionalneeds: [32m'Breakfast'[39m
+  }
+}
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>

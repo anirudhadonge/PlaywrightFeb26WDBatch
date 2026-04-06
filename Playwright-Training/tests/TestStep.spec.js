@@ -6,12 +6,13 @@ test.beforeEach("Navigate to Login Page", async ({ page }) => {
   });
 });
 
-test.only("Login to Application", async ({ page }) => {
+test("Login to Application", async ({ page }) => {
   test.slow();
   await test.step("Enter the Username and password and Login", async () => {
-    await page.locator("#username").pressSequentially("tomsmith");
-    await page.locator("#password").pressSequentially("SuperSecretPassword!");
-    await page.locator(".radius").click();
+    await testSteps(page);
+    // await page.locator("#username").pressSequentially("tomsmith");
+    // await page.locator("#password").pressSequentially("SuperSecretPassword!");
+    // await page.locator(".radius").click();
   });
 
   await test.step("Validate login is successfull", async () => {
@@ -27,3 +28,10 @@ test.only("Login to Application", async ({ page }) => {
     );
   });
 });
+
+
+async function testSteps(page) {
+    await page.locator("#username").pressSequentially("tomsmith");
+    await page.locator("#password").pressSequentially("SuperSecretPassword!");
+    await page.locator(".radius").click();
+}

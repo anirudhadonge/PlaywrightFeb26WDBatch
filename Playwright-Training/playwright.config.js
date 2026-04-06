@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig, devices } from '@playwright/test';
+import AllureReporter from 'allure-playwright';
 
 /**
  * Read environment variables from file.
@@ -13,6 +14,7 @@ import { defineConfig, devices } from '@playwright/test';
  * @see https://playwright.dev/docs/test-configuration
  */
 export default defineConfig({
+  globalSetup:"./GlobalSetup/GlobalSetup.js",
   timeout:180000,
   // expect:{
   //   timeout:1000
@@ -31,7 +33,8 @@ export default defineConfig({
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [['html',{open:"never"}],
 ['json',{outputFile:'./json/result.json'}],
-['junit',{outputFile:'./Junit/result.xml'}]], // html, xml , json allure reports 
+['junit',{outputFile:'./Junit/result.xml'}],
+["allure-playwright"]], // html, xml , json allure reports 
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     testIdAttribute: 'dataid',
@@ -44,7 +47,7 @@ export default defineConfig({
     },
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     
-    browserName:'chromium',
+    browserName: process.env.BROWSER || 'chromium',
     channel:'',
     headless:false,
     viewport: null,
@@ -70,19 +73,23 @@ export default defineConfig({
   // projects: [
   //   {
   //     name: 'chromium',
-  //     use: { ...devices['Desktop Chrome'] },
+  //     use: { browserName:'chromium' },
   //   },
 
   //   {
-  //     name: 'firefox',
-  //     use: { ...devices['Desktop Firefox'] },
+  //     name: 'chrome',
+  //     use: { browserName:'chromium',
+  //       channel:'chrome'
+  //      },
   //   },
 
   //   {
-  //     name: 'webkit',
-  //     use: { ...devices['Desktop Safari'] },
+  //     name: 'msedge',
+  //     use: { browserName:'chromium',
+  //       channel:'msedge'
+  //      },
   //   },
-
+  // ],
   //   /* Test against mobile viewports. */
   //   // {
   //   //   name: 'Mobile Chrome',

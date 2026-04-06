@@ -52,4 +52,16 @@ export class BasePage {
     });
     this.clickOnElement(locatorString);
   }
+
+  async fill(locatorString, value) {
+    await this.getLocator(locatorString).fill(value);
+  }
+
+  async pressSequentially(locatorString, value, timeout=100) {
+    await this.getLocator(locatorString).pressSequentially(value, { delay:timeout });
+  }
+
+  async getAllTextContents(locatorString) {
+    return await this.page.locator(locatorString).allTextContents();
+  }
 }
