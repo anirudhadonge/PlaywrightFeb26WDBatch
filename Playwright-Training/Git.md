@@ -8,7 +8,7 @@ Manage code in proper order
 1. Git Init : Initializes the Repository 
 2. Git Clone
 3. Git Push
-4. Git Pull
+4. Git Pull : This Command is used to pull the latest code fromd the remote repository.
 5. Git branch 
 6. Git Checkout
 7. Git Merge
@@ -17,3 +17,4 @@ Manage code in proper order
 ## Branches in Git
 1. Local Branch
 2. Remote Branch
+
