@@ -18,3 +18,14 @@ Manage code in proper order
 1. Local Branch
 2. Remote Branch
 
+## new branch
+git checkout -b <branch name>
+
+## Switching between branches 
+git checkout <branch name>
+
+## Commit
+When ever you are pushing the code into your local branch it is called as commit.
+
+## Push
+You are pushing your code to remove branch. 
