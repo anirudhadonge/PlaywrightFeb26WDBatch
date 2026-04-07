@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 import { ProductPage } from "../PageModel/ProductPage";
 import { LoginAndSignup } from "../PageModel/LoginAndSignup";
 import { customTest } from "../Fixture/CustomFixture";
-import product from "../TestData/product.json";
+import product from "../TestData/product.json" with { type: 'json' };
 // Dev , QA , Staging , Prod
 let productPage;
 let loginAndSignup;
