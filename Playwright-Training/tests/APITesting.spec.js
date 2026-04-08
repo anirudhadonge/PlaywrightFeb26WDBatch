@@ -26,7 +26,7 @@ const payload = {
     },
     "additionalneeds" : "Breakfast"
 }
-test.only("Create Booking using API", async ({ request }) => {
+test("@Regression Create Booking using API", async ({ request }) => {
     const response = await request.post("https://restful-booker.herokuapp.com/booking", {
         headers:headers,
         data:payload

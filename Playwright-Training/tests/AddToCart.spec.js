@@ -6,7 +6,7 @@ import product from "../TestData/product.json" with { type: 'json' };
 // Dev , QA , Staging , Prod
 let productPage;
 let loginAndSignup;
-test.only("Add to cart", async ({ page }) => {
+test("@Regression Add to cart", async ({ page }) => {
   productPage = new ProductPage(page);
   loginAndSignup = new LoginAndSignup(page);
   await loginAndSignup.goto(process.env.URL);
